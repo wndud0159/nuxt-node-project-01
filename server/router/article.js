@@ -13,7 +13,7 @@ router.get("/article/:id", async (req, res) => {
 
 // 게시글 추가
 router.post("/article/create", async (req, res) => {
-    const { title, content, board } = req.body;
+    const { title, content, board, image } = req.body;
     const { authorization } = req.headers;
 
     if (!authorization) {
@@ -29,7 +29,7 @@ router.post("/article/create", async (req, res) => {
         if (err) {
             return res.send(err);
         }
-        const payload = { author: data.id, title, content, board };
+        const payload = { author: data.id, title, content, board, articleImgAddress: image };
         const newArticle = await Article(payload).save();
 
         res.send(newArticle);

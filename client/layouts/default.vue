@@ -1,5 +1,6 @@
 <template>
     <div class="">
+        <GNB />
         <Nuxt />
     </div>
 </template>

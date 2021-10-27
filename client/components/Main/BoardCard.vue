@@ -6,7 +6,9 @@
             <div class="text-xl font-bold flex items-center">
                 <div>{{ title }}</div>
             </div>
-            <div class="text-sm text-gray-500">더보기 ></div>
+            <nuxt-link :to="`topics/${slug}`" class="text-sm text-gray-500"
+                >더보기 ></nuxt-link
+            >
         </div>
         <div
             class="flex justify-between items-center py-1"

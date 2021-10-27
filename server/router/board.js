@@ -78,6 +78,7 @@ router.get("/board/:slug", async (req, res) => {
     const article = await Article.find({
         board: board._id,
     });
+
     res.send({
         article,
         error: false,

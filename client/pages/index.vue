@@ -1,7 +1,5 @@
 <template>
     <div>
-        <!-- global navigation bar -->
-        <GNB />
         <!-- main section -->
         <div class="pt-28 flex px-5">
             <div class="w-8/12 pr-14">

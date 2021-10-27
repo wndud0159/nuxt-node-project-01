@@ -64,10 +64,16 @@
                     ></textarea>
                 </div>
                 <div class="flex text-2xl px-3 py-3 bg-gray-300 space-x-5">
-                    <i class="fas fa-camera"></i>
+                    <i class="fas fa-camera" @click="$refs.img.click()"></i>
                     <i class="fas fa-chart-bar"></i>
                     <i class="fas fa-at"></i>
                     <i class="fas fa-hashtag"></i>
+                    <input
+                        class=" hidden"
+                        type="file"
+                        ref="img"
+                        @change="uploadImage"
+                    />
                 </div>
             </div>
         </div>
@@ -88,7 +94,8 @@ export default {
             currentSelectBoard: 0,
             isBoardSelected: false,
             title: null,
-            content: null
+            content: null,
+            imgFile: null
         };
     },
     created() {
@@ -112,12 +119,23 @@ export default {
             const response = await this.$api.post("/article/create", {
                 title: this.title,
                 content: this.content,
-                board: this.boardList[this.currentSelectBoard]._id
+                board: this.boardList[this.currentSelectBoard]._id,
+                image: this.imgFile
             });
             this.closeWritingModal();
         },
         closeWritingModal() {
             this.$store.commit("modal/SET_WRITING_MODAL_STATE", false);
+        },
+        async uploadImage() {
+            let formdata = new FormData();
+            let file = this.$refs.img.files[0];
+            formdata.append("file", file);
+            setTimeout(async () => {
+                const response = await this.$api.post("/upload", formdata);
+                console.log("image response : ", response);
+                this.imgFile = response.data.key;
+            }, 300);
         }
     }
 };
